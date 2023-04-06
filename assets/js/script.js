@@ -82,6 +82,30 @@ function print(queryURL){
     })
 }
 
+function printList(){
+    let storedCities = JSON.parse(localStorage.getItem("City Collection"));
+
+    cityList.empty()
+    
+    $.each( storedCities, function( i, value ){
+        var Anchor = $('<a>');
+        if(isOdd(i) == 1){
+            Anchor.addClass("list-group-item list-group-item-action list-group-item-light city")
+        }else{
+            Anchor.addClass("list-group-item list-group-item-action list-group-item-dark city")
+        }
+
+        Anchor.text(value)
+        
+        cityList.append(Anchor);
+    })
+}
+
+function isOdd(num) { 
+    return num % 2;
+}
+
+
 
 
 inputContainer.on('click', '#button-addon2', function(event){
