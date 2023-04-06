@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
+    crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" 
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
+    crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-dark">
+            <a class="navbar-brand mx-auto text-white" href="#">
+              Weather App
+            </a>
+          </nav>
+    </header>
+    <main>
+        <div class="container my-5">
+            <div class="d-lg-inline-flex justify-content-evenly m-1 main-block">
+                <div>
+                    <h2>Search for a City:</h2>
+                    <div class="input-group mb-3 w-100">
+                        <input type="text" class="form-control" id="input-city" placeholder="City" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                    </div>
+                    <div class="alert fst-italic"></div>
+                    <div id="city-display-list" class="list-group w-100">
+                    </div> 
+                </div> 
+                <div class="current-City m-5">
+                    <div class="p-5 mb-2 border-opacity-75 d-flex flex-row">
+                        <div class='p-2'>
+                            <h4>City</h4>
+                            <p id="City"></p>
+                            <h4>Temperature</h4>
+                            <p id="temperature">&#8451;</p>
+                            <h4>Humidity</h4>
+                            <p id="humidity">%</p>
+                            <h4>Wind Speed</h4>
+                            <p id="wind-speed">m/s</p>
+                            <h4>Date</h4>
+                            <p id="date"></p>
+                        </div>
+                        <div class="pl-3" style="width: 100%;">
+                            <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block main-image' width="150" height="150" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h2 class="mb-4">5 Day Forecast:</h2>
+                        <div class="col-xs-12 col-sm-6 col-md-2 mini-forcast m-2" Data-index="0">
+                            <h5 class="mini-date"></h5>
+                            <h6></h6>
+                            <div class="">
+                                <div class="pt-4">
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-50 start-100 translate-middle">
+                                            <p class="temperature-mini"></p>
+                                        </div>
+                                    </div>
+                                    <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block mb-4' width="50" height="50" >
+                                    <p class="humidity-mini"></p>
+                                    <p class="wind-speed-mini"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 mini-forcast m-2" Data-index="1">
+                            <h5 class="mini-date"></h5>
+                            <h6></h6>
+                            <div class="">
+                                <div class="pt-4">
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-50 start-100 translate-middle">
+                                            <p class="temperature-mini"></p>
+                                        </div>
+                                    </div>
+                                    <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block mb-4' width="50" height="50" >
+                                    <p class="humidity-mini"></p>
+                                    <p class="wind-speed-mini"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 mini-forcast m-2" Data-index="2">
+                            <h5 class="mini-date"></h5>
+                            <h6></h6>
+                            <div class="">
+                                <div class="pt-4">
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-50 start-100 translate-middle">
+                                            <p class="temperature-mini"></p>
+                                        </div>
+                                    </div>
+                                    <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block mb-4' width="50" height="50" >
+                                    <p class="humidity-mini"></p>
+                                    <p class="wind-speed-mini"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 mini-forcast m-2" Data-index="3">
+                            <h5 class="mini-date"></h5>
+                            <h6></h6>
+                            <div class="">
+                                <div class="pt-4">
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-50 start-100 translate-middle">
+                                            <p class="temperature-mini"></p>
+                                        </div>
+                                    </div>
+                                    <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block mb-4' width="50" height="50" >
+                                    <p class="humidity-mini"></p>
+                                    <p class="wind-speed-mini"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 mini-forcast m-2" Data-index="4">
+                            <h5 class="mini-date"></h5>
+                            <h6></h6>
+                            <div class="">
+                                <div class="pt-4">
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-50 start-100 translate-middle">
+                                            <p class="temperature-mini"></p>
+                                        </div>
+                                    </div>
+                                    <img src="./assets/images/weather_placeholder.png" class='rounded mx-auto d-block mb-4' width="50" height="50" >
+                                    <p class="humidity-mini"></p>
+                                    <p class="wind-speed-mini"></p>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script src="./assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
