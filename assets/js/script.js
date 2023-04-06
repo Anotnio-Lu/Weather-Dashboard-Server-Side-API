@@ -105,6 +105,75 @@ function isOdd(num) {
     return num % 2;
 }
 
+function forcastdisplay(list){
+    $.each( [1,2,3,4,5], function( number ){
+        $.each( list, function( i, l ){
+            var nextDay = currentDay + number
+            var stringNumber = String(nextDay)
+            if(stringNumber.length == 1){
+                nextDay = "0".concat(stringNumber);
+            }
+            var Day = formatDay + nextDay + time
+            var Day2 = formatDay + nextDay + " 12:00:00"
+
+            if(l.dt_txt == Day || l.dt_txt == Day2){
+                $( ".mini-forcast" ).each(function() {
+                    if($( this ).attr( "Data-index" ) == number){
+                        $( this ).children('h6').text(dayjs(formatDay + nextDay).format('ddd'))
+                        $( this ).children('.mini-date').text(formatDay + nextDay)
+                        $( this ).find( ".temperature-mini" ).text("")
+                        $( this ).find( ".temperature-mini" ).prepend(Math.round(l.main.temp*10)/10).append("<span>&#8451;</span>")
+                        $( this ).find( ".humidity-mini" ).text(l.main.humidity).prepend("Humidity: ").append("%")
+                        $( this ).find( ".wind-speed-mini" ).text(l.wind.speed).prepend("Wind Speed: ").append("meter/sec")
+                        var image = $( this ).find('img')
+                        iconselector(l.weather[0].description, image)
+                    }
+                  });
+            } 
+        });
+    });
+}
+
+function iconselector(input, selected){
+    switch (input) { 
+        case 'scattered clouds': 
+        case 'broken clouds': 
+        case 'few clouds': 
+            selected.attr("src","./assets/images/overcast.png");
+            break;
+
+        case 'clear sky': 
+            selected.attr("src","./assets/images/sun.png");
+            break;
+
+        case 'snow': 
+            selected.attr("src","./assets/images/landscape.png");
+            break;	
+            
+
+        case 'light rain': 
+            selected.attr("src","./assets/images/Light-rain.png");
+            break;
+
+
+        case 'overcast clouds': 
+            selected.attr("src","./assets/images/overcast-(2).png");
+            break;	
+
+
+        case 'moderate rain': 
+            selected.attr("src","./assets/images/rain(2).png");
+            break;
+
+        case 'heavy intensity rain': 
+            selected.attr("src","./assets/images/heavy-rain.png");
+            break;
+
+
+        default:
+          
+    }
+}
 
 
 
