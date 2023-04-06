@@ -12,6 +12,75 @@ var inputContainer = $('.input-group')
 var cityList = $('#city-display-list')
 var firstBlock = $('.first-block')
 
+var APIKey = "3ef80db693831f335d2ea70f14bb84bc";
+var City = 'sydney'
+
+
+navigator.geolocation.getCurrentPosition(successCallback, gpsError)
+
+var lat
+var lon 
+var queryURL
+
+function successCallback(pos) {
+    lat = pos.coords.latitude.toFixed(4);
+    lon = pos.coords.longitude.toFixed(4);
+    queryURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey + '&units=metric'
+
+    function getApi(requestUrl) {
+        fetch(requestUrl)
+        .then(function (response) {
+            if (response.status == 200) {
+                // console.log(response.status)
+            }
+            return response.json();
+        });
+    }
+    
+    getApi(queryURL);
+    printList()
+    print(queryURL)
+}
+
+function gpsError(err) {
+    console.warn(`Error: ${err.code}, ${err.message}`);
+    var SydneyURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + '33.8868' + '&lon=' + '151.2123' + '&appid=' + APIKey + '&units=metric'
+    printList()
+    print(SydneyURL)
+}
+
+
+var today = dayjs();
+var formatDay = today.format('YYYY-MM-')
+
+var time = " 00:00:00"
+var currentDay = dayjs().get('date')
+
+
+function print(queryURL){
+    fetch(queryURL).then(function(response){
+        return response.json();
+    }).then(city =>{
+        var cityName = city.city.name
+        var list = city.list
+        forcastdisplay(list)
+
+        var day = city.list[0]
+        var weatherCondition = city.list[0].weather[0].description
+        if(cityName == ''){
+            cityname.text('Sydney')
+        } else{
+            cityname.text(cityName)
+        }
+        cityTemp.prepend(Math.round(day.main.temp*10)/10)
+        cityHumidity.prepend(day.main.humidity)
+        cityWindSpeed.prepend(day.wind.speed)
+        dateDisplay.prepend(formatDay + currentDay)
+
+        iconselector(weatherCondition, $(".main-image"))
+
+    })
+}
 
 
 
