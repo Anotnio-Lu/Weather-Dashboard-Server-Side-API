@@ -176,6 +176,30 @@ function iconselector(input, selected){
 }
 
 
+function setInfo(input){
+    City = input
+    var qURL = 'http://api.openweathermap.org/data/2.5/forecast?q='+City+'&appid=' + APIKey + '&units=metric'
+    fetch(qURL).then(function(response){
+        return response.json();
+    }).then(output =>{
+        var cityName = output.city.name
+        var day = output.list[0]
+        storeValue(cityName)
+
+        cityname.text(cityName)
+        cityTemp.empty().prepend(Math.round(day.main.temp*10)/10).append("<span>&#8451;</span>")
+        cityHumidity.empty().prepend(day.main.humidity + "%")
+        cityWindSpeed.empty().prepend(day.wind.speed + "meter/sec")
+
+        var list = output.list
+        forcastdisplay(list)
+
+        var weatherCondition = output.list[0].weather[0].description
+        iconselector(weatherCondition, $(".main-image"))
+    })
+
+}
+
 
 inputContainer.on('click', '#button-addon2', function(event){
     
@@ -220,6 +244,13 @@ inputContainer.on('click', '#button-addon2', function(event){
          })
     });
     correctspelling = false
+})
+
+cityList.on('click', '.city', function(event){
+
+    var value = $(event.target)[0].textContent 
+    setInfo(value)
+    
 })
 
 
