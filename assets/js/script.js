@@ -14,6 +14,7 @@ var firstBlock = $('.first-block')
 
 
 
+
 inputContainer.on('click', '#button-addon2', function(event){
     
     var displayCityAnchor = $('<a>');
@@ -44,6 +45,7 @@ inputContainer.on('click', '#button-addon2', function(event){
                         return
                     }
                 });
+                setInfo(CapitalizedWord)
                 correctspelling = true
                 $('#input-city').val('')
                 $('.alert').text('')
@@ -77,7 +79,7 @@ function storeValue(input){
 
     cityListArray.push(input);
     localStorage.setItem('City Collection', JSON.stringify(cityListArray))
-
+    printList()
 
 }
 
@@ -86,3 +88,54 @@ function containsWhitespace(str) {
   }
   
 
+$(document).ready(function() {
+
+    var correctspelling = false
+    var posted = true
+
+    inputContainer.keydown(function(event) {
+
+        var value = $(event.target).parent('div').children('input').val().trim().toLowerCase()
+        if(value == ""){
+            return
+        }
+    
+        if(event.which == 13){
+
+            if(containsWhitespace(value)){
+                const words = value.split(" ");
+                for (let i = 0; i < words.length; i++) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                }
+                var CapitalizedWord = words.join(" ");
+            } else {
+                var CapitalizedWord = value.substring(0, 1).toUpperCase() + value.substring(1);
+            }
+
+            $.getJSON('cities.json', function(data) {
+                $.each(data, function(key, val) {
+                    if(val.name == CapitalizedWord){
+                        let CityList = JSON.parse(localStorage.getItem("City Collection"));
+                        $.each(  CityList, function( i, val ){
+                            if(val == CapitalizedWord){
+                                CityList.splice(i, 1)
+                                return
+                            }
+                        });
+                        setInfo(CapitalizedWord)
+                        correctspelling = true
+                        $('#input-city').val('')
+                        $('.alert').text('')
+                        return
+                    }
+                    if(correctspelling == false){
+
+                        $('.alert').text('Invalid Input')
+                        return
+                    }
+                 })
+            });
+        }
+        correctspelling = false
+      });
+});
